@@ -19,11 +19,22 @@ app.get('/user/:id', (req, res) => {
       data.id === req.params.id
       return data;
     });
-  res.json(data);
-} catch (error) {
-  res.json(error);
-}
-
+    res.json(data);
+  } catch (error) {
+    res.json(error);
+  }
+})
+app.delete('/user/:id', (req, res) => {
+  const data = users.find((data) => {
+    data.id === req.params.id
+    return data;
+  });
+  if (data) {
+    users.splice(req.params.id, 1)
+    res.sendStatus(202)
+  } else {
+    res.sendStatus(204)
+  }
 
 })
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
